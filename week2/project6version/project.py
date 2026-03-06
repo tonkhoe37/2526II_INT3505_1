@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 
 app = Flask(__name__)
 
@@ -20,10 +20,16 @@ users = [
 ]
 
 
-# GET users
+# GET users (Cacheable)
 @app.route("/users", methods=["GET"])
 def get_users():
-    return jsonify([u.to_dict() for u in users])
+
+    response = make_response(jsonify([u.to_dict() for u in users]))
+
+    # Cache for 60 seconds
+    response.headers["Cache-Control"] = "public, max-age=60"
+
+    return response
 
 
 # POST create user
