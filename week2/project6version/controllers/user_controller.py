@@ -51,3 +51,21 @@ def delete_user(id):
         return "", 404
 
     return "", 204
+
+
+# CODE ON DEMAND
+@user_bp.route("/client-script", methods=["GET"])
+def get_script():
+
+    script = """
+    console.log("Code on demand from server!");
+
+    function hello(){
+        alert("Hello Postmain!");
+    }
+    """
+
+    response = make_response(script)
+    response.headers["Content-Type"] = "application/javascript"
+
+    return response
