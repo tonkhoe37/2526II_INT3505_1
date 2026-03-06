@@ -20,13 +20,12 @@ users = [
 ]
 
 
-# GET users (Cacheable)
+# GET users (cacheable)
 @app.route("/users", methods=["GET"])
 def get_users():
 
     response = make_response(jsonify([u.to_dict() for u in users]))
 
-    # Cache for 60 seconds
     response.headers["Cache-Control"] = "public, max-age=60"
 
     return response
@@ -46,6 +45,59 @@ def create_user():
     users.append(new_user)
 
     return jsonify(new_user.to_dict()), 201
+
+
+# PUT update full user
+@app.route("/users/<id>", methods=["PUT"])
+def update_user(id):
+
+    data = request.get_json()
+
+    if not data:
+        return "", 400
+
+    for i, u in enumerate(users):
+        if u.id == id:
+            users[i] = User(id, data["name"], data["email"])
+            return jsonify(users[i].to_dict()), 200
+
+    return "", 404
+
+
+# PATCH update partial user
+@app.route("/users/<id>", methods=["PATCH"])
+def patch_user(id):
+
+    data = request.get_json()
+
+    if not data:
+        return "", 400
+
+    for u in users:
+
+        if u.id == id:
+
+            if "name" in data:
+                u.name = data["name"]
+
+            if "email" in data:
+                u.email = data["email"]
+
+            return jsonify(u.to_dict()), 200
+
+    return "", 404
+
+
+# DELETE user
+@app.route("/users/<id>", methods=["DELETE"])
+def delete_user(id):
+
+    for i, u in enumerate(users):
+        if u.id == id:
+            users.pop(i)
+            return "", 204
+
+    return "", 404
 
 
 if __name__ == "__main__":
