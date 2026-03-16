@@ -30,3 +30,24 @@ def delete_user(id):
             users.pop(i)
             return True
     return False
+
+
+def login(email, password):
+    for u in users:
+        if u.email == email and u.password == password:
+            return u
+    return None
+
+
+def create_user(data):
+
+    # kiểm tra id đã tồn tại chưa
+    for user in users:
+        if user.id == data["id"]:
+            return None
+
+    # nếu chưa tồn tại thì tạo user
+    user = User(data["id"], data["name"], data["email"], data)
+    add_user(user)
+
+    return user
