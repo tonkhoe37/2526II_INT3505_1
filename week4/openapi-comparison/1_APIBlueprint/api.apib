@@ -1,0 +1,119 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# Book Management API
+
+API dùng để quản lý sách (CRUD, tìm kiếm, cập nhật...)
+
+# Group Books
+
+## Books Collection [/api/books]
+
+### Get all books [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              {
+                "id": "1",
+                "title": "Clean Code",
+                "author": "Robert C. Martin",
+                "price": 30
+              }
+            ]
+
+
+### Create a new book [POST]
+
++ Request (application/json)
+
+    + Body
+
+            {
+              "id": "1",
+              "title": "Clean Code",
+              "author": "Robert C. Martin",
+              "price": 30
+            }
+
++ Response 201
+
+    + Body
+
+            {
+              "message": "Book created"
+            }
+
+
+## Book Detail [/api/books/{id}]
+
++ Parameters
+
+    + id: `1` (string, required) - ID của sách
+
+---
+
+### Get book by ID [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "id": "1",
+              "title": "Clean Code",
+              "author": "Robert C. Martin",
+              "price": 30
+            }
+
++ Response 404
+
+    + Body
+
+            {
+              "message": "Book not found"
+            }
+
+---
+
+### Update a book [PUT]
+
++ Request (application/json)
+
+    + Body
+
+            {
+              "title": "Clean Code Updated",
+              "author": "Robert C. Martin",
+              "price": 35
+            }
+
++ Response 200
+
+    + Body
+
+            {
+              "message": "Book updated"
+            }
+
++ Response 404
+
+    + Body
+
+            {
+              "message": "Book not found"
+            }
+
+---
+
+### Delete a book [DELETE]
+
++ Response 200
+
+    + Body
+
+            {
+              "message": "Book deleted"
+            }

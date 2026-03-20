@@ -1,0 +1,66 @@
+#%RAML 1.0
+title: Book Management API
+version: v1
+baseUri: http://localhost:3000
+
+types:
+  Book:
+    type: object
+    properties:
+      id: string
+      title: string
+      author: string
+      price: number
+
+  BookUpdate:
+    type: object
+    properties:
+      title?: string
+      author?: string
+      price?: number
+
+/api/books:
+  get:
+    description: Get all books
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book[]
+
+  post:
+    description: Create a new book
+    body:
+      application/json:
+        type: Book
+    responses:
+      201:
+        description: Book created
+
+/api/books/{id}:
+  get:
+    description: Get book by ID
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book
+      404:
+        description: Book not found
+
+  put:
+    description: Update a book
+    body:
+      application/json:
+        type: BookUpdate
+    responses:
+      200:
+        description: Book updated
+      404:
+        description: Book not found
+
+  delete:
+    description: Delete a book
+    responses:
+      200:
+        description: Book deleted
