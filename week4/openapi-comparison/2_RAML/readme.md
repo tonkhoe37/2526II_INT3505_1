@@ -10,7 +10,7 @@ Thư mục này chứa tài liệu API sử dụng RAML (RESTful API Modeling La
 
 ## Cài đặt
 
-npm install -g raml2html-cli
+npm install -g raml2html
 
 ## Chuyển sang HTML
 
