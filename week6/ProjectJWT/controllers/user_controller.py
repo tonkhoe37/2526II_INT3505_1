@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from services import user_service
 from authentication.auth import auth_required
-from week6.ProjectJWT.authentication.blacklistToken import blacklistToken
+from authentication.blacklistToken import blacklistToken
 from authorization.auth import role_required
 from data.role_enum import Role
 import jwt
@@ -49,7 +49,7 @@ def login():
     access_token = jwt.encode(
         {
             "email": user.email,
-            "role": user.role,
+            "role": user.role.name,
             "iat": now,
             "exp": now + datetime.timedelta(minutes=15),
         },

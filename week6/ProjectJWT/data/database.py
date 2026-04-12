@@ -1,4 +1,4 @@
-from role_enum import Role
+from data.role_enum import Role
 
 
 class User:

@@ -2,7 +2,7 @@ import jwt
 from flask import request, jsonify
 from functools import wraps
 import os
-from week6.ProjectJWT.authentication.blacklistToken import blacklistToken
+from authentication.blacklistToken import blacklistToken
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
 

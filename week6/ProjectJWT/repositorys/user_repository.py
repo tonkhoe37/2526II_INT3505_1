@@ -1,4 +1,5 @@
 from data.database import users, User
+from data.role_enum import Role
 
 
 def get_all_users():
@@ -46,8 +47,10 @@ def create_user(data):
         if user.id == data["id"]:
             return None
 
-    # nếu chưa tồn tại thì tạo user
-    user = User(data["id"], data["name"], data["email"], data)
+    role = Role[data["role"]]
+
+    user = User(data["id"], data["name"], data["email"], data["password"], role)
+
     add_user(user)
 
     return user
