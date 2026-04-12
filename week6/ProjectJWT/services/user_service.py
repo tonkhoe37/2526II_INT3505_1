@@ -1,6 +1,5 @@
 from repositorys import user_repository
 from data.database import User
-from data.database import users
 
 
 def get_users():

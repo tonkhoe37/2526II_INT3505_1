@@ -1,0 +1,224 @@
+openapi: 3.0.3
+info:
+  description: API quản lý User và Product
+  title: User & Product API
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api
+paths:
+  /users:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserList"
+          description: List of users
+      summary: Get all users
+      x-accepts:
+      - application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "201":
+          description: User created
+      summary: Create user
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /users/{id}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Deleted
+      summary: Delete user
+      x-accepts:
+      - application/json
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: User detail
+      summary: Get user by ID
+      x-accepts:
+      - application/json
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: Updated
+      summary: Update user
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /products:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductList"
+          description: List of products
+      summary: Get all products
+      x-accepts:
+      - application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "201":
+          description: Product created
+      summary: Create product
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /products/{id}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Deleted
+      summary: Delete product
+      x-accepts:
+      - application/json
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+          description: Product detail
+      summary: Get product by ID
+      x-accepts:
+      - application/json
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "200":
+          description: Updated
+      summary: Update product
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    User:
+      example:
+        name: Khoe
+        id: u123
+        email: khoe@gmail.com
+        age: 21
+      properties:
+        id:
+          example: u123
+          type: string
+        name:
+          example: Khoe
+          type: string
+        email:
+          example: khoe@gmail.com
+          type: string
+        age:
+          example: 21
+          type: integer
+      type: object
+    UserList:
+      items:
+        $ref: "#/components/schemas/User"
+      type: array
+    Product:
+      example:
+        price: 1000
+        name: Laptop
+        description: Gaming laptop
+        id: p123
+      properties:
+        id:
+          example: p123
+          type: string
+        name:
+          example: Laptop
+          type: string
+        price:
+          example: 1000
+          type: number
+        description:
+          example: Gaming laptop
+          type: string
+      type: object
+    ProductList:
+      items:
+        $ref: "#/components/schemas/Product"
+      type: array

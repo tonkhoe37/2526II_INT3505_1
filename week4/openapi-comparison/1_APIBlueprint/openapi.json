@@ -1,0 +1,259 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Book Management API",
+    "version": "",
+    "description": "API dùng để quản lý sách (CRUD, tìm kiếm, cập nhật...)"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/api/books": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": [
+                {
+                  "id": "1",
+                  "title": "Clean Code",
+                  "author": "Robert C. Martin",
+                  "price": 30
+                }
+              ]
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "id": "1",
+                  "title": "Clean Code",
+                  "author": "Robert C. Martin",
+                  "price": 30
+                }
+              ]
+            }
+          }
+        },
+        "summary": "Get all books",
+        "operationId": "getBooks",
+        "description": "",
+        "tags": ["Books"],
+        "parameters": [],
+        "produces": ["application/json"],
+        "consumes": []
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {},
+            "examples": {}
+          }
+        },
+        "summary": "Create a new book",
+        "operationId": "createBook",
+        "description": "",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "id": "1",
+                "title": "Clean Code",
+                "author": "Robert C. Martin",
+                "price": 30
+              }
+            }
+          }
+        ],
+        "consumes": ["application/json"]
+      }
+    },
+    "/api/books/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "id": "1",
+                "title": "Clean Code",
+                "author": "Robert C. Martin",
+                "price": 30
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "id": "1",
+                "title": "Clean Code",
+                "author": "Robert C. Martin",
+                "price": 30
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {},
+            "examples": {}
+          }
+        },
+        "summary": "Get book by ID",
+        "operationId": "getBookById",
+        "description": "",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của sách",
+            "required": true,
+            "x-example": "1",
+            "type": "string"
+          }
+        ],
+        "produces": ["application/json"],
+        "consumes": []
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {},
+            "examples": {}
+          }
+        },
+        "summary": "Update a book",
+        "operationId": "updateBook",
+        "description": "",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của sách",
+            "required": true,
+            "x-example": "1",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "title": "Clean Code Updated",
+                "author": "Robert C. Martin",
+                "price": 35
+              }
+            }
+          }
+        ],
+        "consumes": ["application/json"]
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {}
+          }
+        },
+        "summary": "Delete a book",
+        "operationId": "deleteBook",
+        "description": "",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của sách",
+            "required": true,
+            "x-example": "1",
+            "type": "string"
+          }
+        ],
+        "consumes": []
+      }
+    }
+  },
+  "definitions": {
+    "Books Collection": {},
+    "Book Detail": {}
+  },
+  "securityDefinitions": {},
+  "tags": [
+    {
+      "name": "Books"
+    }
+  ]
+}

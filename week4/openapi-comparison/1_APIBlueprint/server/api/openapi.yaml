@@ -1,0 +1,176 @@
+openapi: 3.0.1
+info:
+  description: "API dùng để quản lý sách (CRUD, tìm kiếm, cập nhật...)"
+  title: Book Management API
+  version: ""
+servers:
+- url: http://localhost:3000/
+tags:
+- name: Books
+paths:
+  /api/books:
+    get:
+      operationId: getBooks
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: "1"
+                title: Clean Code
+                author: Robert C. Martin
+                price: 30
+              schema:
+                example:
+                - id: "1"
+                  title: Clean Code
+                  author: Robert C. Martin
+                  price: 30
+                items:
+                  $ref: "#/components/schemas/getBooks_200_response_inner"
+                type: array
+          description: OK
+      summary: Get all books
+      tags:
+      - Books
+      x-eov-operation-handler: controllers/BooksController
+    post:
+      operationId: createBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createBook_request"
+        required: false
+      responses:
+        "201":
+          content: {}
+          description: Created
+      summary: Create a new book
+      tags:
+      - Books
+      x-codegen-request-body-name: body
+      x-eov-operation-handler: controllers/BooksController
+  /api/books/{id}:
+    delete:
+      operationId: deleteBook
+      parameters:
+      - description: ID của sách
+        example: "1"
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: OK
+      summary: Delete a book
+      tags:
+      - Books
+      x-eov-operation-handler: controllers/BooksController
+    get:
+      operationId: getBookById
+      parameters:
+      - description: ID của sách
+        example: "1"
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: "1"
+                title: Clean Code
+                author: Robert C. Martin
+                price: 30
+              schema:
+                $ref: "#/components/schemas/createBook_request"
+          description: OK
+        "404":
+          content: {}
+          description: Not Found
+      summary: Get book by ID
+      tags:
+      - Books
+      x-eov-operation-handler: controllers/BooksController
+    put:
+      operationId: updateBook
+      parameters:
+      - description: ID của sách
+        example: "1"
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateBook_request"
+        required: false
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "404":
+          content: {}
+          description: Not Found
+      summary: Update a book
+      tags:
+      - Books
+      x-codegen-request-body-name: body
+      x-eov-operation-handler: controllers/BooksController
+components:
+  schemas:
+    Books Collection:
+      type: object
+    Book Detail:
+      type: object
+    getBooks_200_response_inner:
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+      type: object
+    createBook_request:
+      example:
+        id: "1"
+        title: Clean Code
+        author: Robert C. Martin
+        price: 30
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+      type: object
+    updateBook_request:
+      example:
+        title: Clean Code Updated
+        author: Robert C. Martin
+        price: 35
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+      type: object
+x-original-swagger-version: "2.0"
