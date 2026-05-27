@@ -4,8 +4,8 @@ from starlette_graphene3 import GraphQLApp
 from routes.courses import router as course_router
 from routes.enrollments import router as enroll_router
 from routes.payments import router as payment_router
+import core.notification  # Import to register event handlers
 
-import notifications
 from graphql_api import schema
 
 app = FastAPI()
